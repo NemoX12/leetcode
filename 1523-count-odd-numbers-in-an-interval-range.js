@@ -1,11 +1,7 @@
 var countOdds = function (low, high, i = 0) {
-  if (low > high + 1) return i;
-
-  if (low % 2 !== 0) {
-    i++;
-  }
-
-  return countOdds((low += 1), high, i);
+  return low % 2 === 0 && high % 2 === 0
+    ? Math.floor((high - low) / 2)
+    : Math.ceil((high - low + 1) / 2);
 };
 
 // Time Complexity: O(1)
