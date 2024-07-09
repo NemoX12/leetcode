@@ -1,17 +1,32 @@
-var numIdenticalPairs = function(nums) {
-    let good = 0
+class HashTable {
+    constructor() {
+        this.table = {};
+    }
 
-    for (let i = 0; i < nums.length; i++) {
-        for(let j = 0; j < nums.length; j++) {
-            if (nums[i] === nums[j] && i < j) good++
+    add(num) {
+        if (this.table[num]) {
+            this.table[num].count++;
+        } else {
+            this.table[num] = { count: 1 };
         }
     }
-    
-    return good
+
+    getCount(num) {
+        return this.table[num] ? this.table[num].count : 0;
+    }
+}
+
+var numIdenticalPairs = function(nums) {
+    let hashTable = new HashTable();
+    let goodPairs = 0;
+
+    for (let num of nums) {
+        goodPairs += hashTable.getCount(num);
+        hashTable.add(num);
+    }
+
+    return goodPairs;
 };
 
-// Runtime complexity O(n^2)
-// Space complexity O(1)
-// https://leetcode.com/problems/number-of-good-pairs/solutions/5440568/08-07-2024/
 
 console.log(numIdenticalPairs([1,2,3,1,1,3]))
